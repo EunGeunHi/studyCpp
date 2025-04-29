@@ -26,6 +26,8 @@ static int count 사용
 
 */
 
+#define MAXSIZE 10
+#define _CRT_SECURE_NO_WARNINGS //strcpy() err
 #include <iostream>
 #include <cstring>
 using namespace std;
@@ -57,6 +59,10 @@ public:
     void showStudent() {
         cout << "id: " << id << ", name: " << name << ", age: " << age << endl;
     }
+    char* getName() {
+        return name;
+    }
+
 };
 
 int Student::count = 0;
@@ -68,24 +74,54 @@ void inputStudents(Student* table[], int& count) {
     const char* names[5] = { "강감찬", "이순신", "신사임당", "김유신", "윤봉길" };
     int ids[5] = { 101, 102, 103, 104, 105 };
     int ages[5] = { 20, 21, 22, 23, 24 };
+    bool addFive = true;
 
-    for (int i = count; i < count + 5; i++) {
-        table[i] = Student(ids[], names[])
+    for (int i = 0; i < 5; i++) {
+        if (count < MAXSIZE)
+            table[count++] = new Student(ids[i % 5], names[i % 5], ages[i % 5]);
+        else{
+            addFive = false;
+            break;
+        }
     }
-
-    cout << "[5명의 학생이 자동으로 입력되었습니다.]" << endl;
+    if (addFive)
+        cout << "[5명의 학생이 자동으로 입력되었습니다.]" << endl;
+    else
+        cout << "[" << MAXSIZE << "명의 학생까지만 자동으로 입력되었습니다.]" << endl;
 }
 void showStudents(Student* table[], int& count) {
     cout << endl << "[현재 등록된 학생 목록]" << endl;
     for (int i = 0; i < count; i++) {
+        if (i >= MAXSIZE) break;
         table[i]->showStudent();
     }
     cout << endl;
 }
+void insertStudents(Student* table[], int& count) {
+    if (count >= MAXSIZE) {
+        cout<<"[테이블이 꽉차 더 추가할 수 없습니다]" << endl;
+        return;
+    }
+    int id;
+    char name[30];
+    int age;
+    cout << "Enter ID Name Age \n";
+    cin >> id >> name >> age;
+    table[count++] = new Student(id, name, age);
+}
+void deleteStudents(Student* table[], int& count) {
+    char name[30];
+    cin >> name;
+    for (int i = 0; i < count; i++) {
+        if (strcmp(name, table[i]->getName()) == 0) {
+
+        }
+    }
+}
 
 // main 함수
 int main() {
-    Student* table[10] = { nullptr };
+    Student* table[MAXSIZE] = { nullptr };
     int count = 0;
     int choice;
 
@@ -101,16 +137,20 @@ int main() {
             showStudents (table,count);
             break;
         case INSERT:
-
+            insertStudents(table, count);
+            showStudents(table, count);
             break;
         case DELETE_STUDENT:
-
+            deleteStudents(table, count);
+            showStudents(table, count);
             break;
         case UPDATE:
 
+            showStudents(table, count);
             break;
         case  EXIT:
-
+            delete[] table;
+            cout<< "[모든 메모리 해제 완료]" << endl;
             repeat_while = 0;
             break;
         default:
