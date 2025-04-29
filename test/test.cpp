@@ -62,6 +62,9 @@ public:
     char* getName() {
         return name;
     }
+    void update() {
+        age++;
+    }
 
 };
 
@@ -93,7 +96,8 @@ void showStudents(Student* table[], int& count) {
     cout << endl << "[현재 등록된 학생 목록]" << endl;
     for (int i = 0; i < count; i++) {
         if (i >= MAXSIZE) break;
-        table[i]->showStudent();
+        if (table[i] != nullptr)
+            table[i]->showStudent();
     }
     cout << endl;
 }
@@ -112,11 +116,26 @@ void insertStudents(Student* table[], int& count) {
 void deleteStudents(Student* table[], int& count) {
     char name[30];
     cin >> name;
-    for (int i = 0; i < count; i++) {
-        if (strcmp(name, table[i]->getName()) == 0) {
 
+    for (int i = 0; i < count; i++) 
+        if (strcmp(name, table[i]->getName()) == 0){
+            delete table[i];
+            cout << "[학생이 삭제되었습니다.]\n";
+
+            for (int j = i; j < count - 1; j++)
+                table[j] = table[j + 1];
+            table[count - 1] = nullptr;
+
+            count--;
         }
-    }
+}
+void updateStudents(Student* table[], int& count) {
+    char name[30];
+    cin >> name;
+
+    for (int i = 0; i < count; i++)
+        if (strcmp(name, table[i]->getName()) == 0)
+            table[i]->update();
 }
 
 // main 함수
@@ -145,11 +164,14 @@ int main() {
             showStudents(table, count);
             break;
         case UPDATE:
-
+            updateStudents(table, count);
             showStudents(table, count);
             break;
         case  EXIT:
-            delete[] table;
+            for (int i = 0; i < count; i++) {
+                delete table[i];
+                table[i] = nullptr;
+            }
             cout<< "[모든 메모리 해제 완료]" << endl;
             repeat_while = 0;
             break;
