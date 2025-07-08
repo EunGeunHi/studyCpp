@@ -28,10 +28,14 @@ public:
 	int pop() {
 		if (size < 1)
 			return -1;
-		return data[size--];
+		return data[--size];
 	}
 	int getSize() { return size; }
-	int top() { return data[size]; }
+	int top() {
+		if (size < 1)
+			return -1;
+		return data[size - 1];
+	}
 	bool isEmpty() { return size == 0; }
 };
 
@@ -40,15 +44,15 @@ void parsing(string&, int&);
 StackFunction toStackFunction(string&);
 
 int main() {
-
 	int num_commands;
 	cin >> num_commands;
+	cin.ignore(); // 입력 버퍼 정리, 반복문에서는 사용하지 않음
+
 	MyStack st(num_commands);
 
 	string command;
 	int command_parsed;
 	for (int i = 0; i < num_commands; ++i) {
-		cin.ignore();	//이전 입력 버퍼 정리
 		getline(cin, command);
 
 		if (isSeveral(command))	//두단어 이상이면 파싱
@@ -71,6 +75,7 @@ int main() {
 			cout << st.top() << endl;
 			break;
 		case UNKNOWN:
+
 		default:
 			cout << "switch default! :입력 이상" << endl;
 			break;
@@ -94,12 +99,12 @@ int strToInt(const string& str) {
 		}
 		ret *= 10;
 		ret += (int)(ch - '0');
-		return ret;
 	}
+	return ret;
 }
 void parsing(string& command, int& command_parsed) {
 	size_t spacePos = command.find(' '); // npos경우 처리는 main에서 if로 확인했음
-	//string.substr(size_t)면 string.substr(size_t, string.length() )와 같음
+	//string.substr(size_t)면 string.substr(size_t, string.length() )과 같음
 	command_parsed = strToInt(command.substr(spacePos + 1));
 	command = command.substr(0, spacePos);
 
