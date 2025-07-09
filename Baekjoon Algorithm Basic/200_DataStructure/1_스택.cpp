@@ -14,29 +14,29 @@ enum StackFunction { UNKNOWN, PUSH, POP, SIZE, EMPTY, TOP };
 class MyStack {// 스택 구현
 private:
 	int* data;
-	int size;
+	int idx_top;
 public:
 	MyStack(int n) {
 		data = new int[n];
-		size = 0;
+		int idx_top = -1;
 	}
 	~MyStack() { delete[] data; }
 
+	bool isEmpty() { return idx_top == -1; }
 	void push(int input) {
-		data[size++] = input;
+		data[++idx_top] = input;
 	}
 	int pop() {
-		if (size < 1)
+		if (isEmpty())
 			return -1;
-		return data[--size];
+		return data[idx_top--];
 	}
-	int getSize() { return size; }
+	int size() { return idx_top + 1; }
 	int top() {
-		if (size < 1)
+		if (isEmpty())
 			return -1;
-		return data[size - 1];
+		return data[idx_top];
 	}
-	bool isEmpty() { return size == 0; }
 };
 
 bool isSeveral(const string&);
@@ -66,7 +66,7 @@ int main() {
 			cout << st.pop() << endl;
 			break;
 		case SIZE:
-			cout << st.getSize() << endl;
+			cout << st.size() << endl;
 			break;
 		case EMPTY:
 			cout << st.isEmpty() << endl;
