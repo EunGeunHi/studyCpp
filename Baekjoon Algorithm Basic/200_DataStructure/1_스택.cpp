@@ -18,7 +18,7 @@ private:
 public:
 	MyStack(int n) {
 		data = new int[n];
-		int idx_top = -1;
+		idx_top = -1;
 	}
 	~MyStack() { delete[] data; }
 
@@ -37,6 +37,8 @@ public:
 			return -1;
 		return data[idx_top];
 	}
+	int getIdxTop() { return idx_top; }
+
 };
 
 bool isSeveral(const string&);
@@ -80,6 +82,7 @@ int main() {
 			cout << "switch default! :입력 이상" << endl;
 			break;
 		}
+		//cout << "idx_top: " << st.getIdxTop() << endl;
 	}
 
 	return 0;

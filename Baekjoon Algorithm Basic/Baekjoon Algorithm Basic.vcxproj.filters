@@ -21,5 +21,11 @@
     <ClCompile Include="200_DataStructure\1_스택.cpp">
       <Filter>소스 파일\200_DataStructure</Filter>
     </ClCompile>
+    <ClCompile Include="200_DataStructure\2_단어뒤집기_스트링.cpp">
+      <Filter>소스 파일\200_DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="200_DataStructure\2_단어뒤집기_스택.cpp">
+      <Filter>소스 파일\200_DataStructure</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
