@@ -127,7 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="200_DataStructure\1_스택.cpp" />
+    <ClCompile Include="000_SelfStudy\getline%28%29과 버퍼.cpp" />
+    <ClCompile Include="200_DataStructure\1_1정수스택_stl.cpp" />
+    <ClCompile Include="200_DataStructure\1_2멀티타입스택_stl.cpp" />
+    <ClCompile Include="200_DataStructure\1__정수스택_구현.cpp" />
     <ClCompile Include="200_DataStructure\2_단어뒤집기_스택.cpp" />
     <ClCompile Include="200_DataStructure\2_단어뒤집기_스트링.cpp" />
   </ItemGroup>

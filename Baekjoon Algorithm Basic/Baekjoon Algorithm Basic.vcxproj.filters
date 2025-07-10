@@ -13,19 +13,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\200_DataStructure">
+    <Filter Include="리소스 파일\000_SelfStudy">
+      <UniqueIdentifier>{000eb679-1e0e-4d41-a08c-e9610d3566ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일\200_DataStructure">
       <UniqueIdentifier>{21358c11-ec41-4a00-a1c6-82566e2dee31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="200_DataStructure\1_스택.cpp">
-      <Filter>소스 파일\200_DataStructure</Filter>
-    </ClCompile>
     <ClCompile Include="200_DataStructure\2_단어뒤집기_스트링.cpp">
-      <Filter>소스 파일\200_DataStructure</Filter>
+      <Filter>리소스 파일\200_DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="200_DataStructure\1_1정수스택_stl.cpp">
+      <Filter>리소스 파일\200_DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="200_DataStructure\1__정수스택_구현.cpp">
+      <Filter>리소스 파일\200_DataStructure</Filter>
     </ClCompile>
     <ClCompile Include="200_DataStructure\2_단어뒤집기_스택.cpp">
-      <Filter>소스 파일\200_DataStructure</Filter>
+      <Filter>리소스 파일\200_DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="000_SelfStudy\getline%28%29과 버퍼.cpp">
+      <Filter>리소스 파일\000_SelfStudy</Filter>
+    </ClCompile>
+    <ClCompile Include="200_DataStructure\1_2멀티타입스택_stl.cpp">
+      <Filter>리소스 파일\200_DataStructure</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
