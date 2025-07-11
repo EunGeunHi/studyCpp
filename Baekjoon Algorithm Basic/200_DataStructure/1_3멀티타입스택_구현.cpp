@@ -1,10 +1,8 @@
-//stl 컨테이너는 기본적으로 하나의 타입만 저장
-// 우회적 방법(1.상속 다형성 2.std::variant 3.std::any)들로 간접적으로 구현
-// 여기선 상속으로 구현
+// 10828변형. 멀티타입 저장 스택 구현
 #include <iostream>
 #include <string>
-#include <stack>
-#include <memory>	//스마트 포인터
+#include <memory>
+
 using namespace std;
 
 //스택 엘리먼트
@@ -45,6 +43,38 @@ public:
 	StackUnknownData(string value) :value(value) {}
 	void combineOsValue(ostream& os) const override { os << "[unkown] " << value; }
 };
+//스택 구현
+template<typename T>
+class MyStack {
+private:
+	T* data;
+	int idx_top;
+public:
+	MyStack(int n) {
+		data = new T[n];
+		idx_top = -1;
+	}
+	~MyStack() { delete[] data; }
+
+	bool isEmpty() { return idx_top == -1; }
+	void push(T input) {
+		data[++idx_top] = input;
+	}
+	T pop() {
+		/*if (isEmpty())
+			return -1;*/	//타입 정해지지 않아서 반환해 줄수 없음. err처리 한다면 throw로 처리해야할 듯
+		return data[idx_top--];
+	}
+	int size() { return idx_top + 1; }
+	T top() {
+		/*if (isEmpty())
+			return -1;*/
+		return data[idx_top];
+	}
+	int getIdxTop() { return idx_top; }
+
+};
+
 //입력 처리
 enum StackFunction { UNKNOWN, PUSH, POP, SIZE, EMPTY, TOP, QUIT };
 enum DataType { UNKOWN, INT, STR, DOUBLE };
@@ -53,36 +83,13 @@ void parsing(string&, unique_ptr<StackBaseData>&, DataType&);
 StackFunction toStackFunction(string&);
 
 
-int main1() {
-	stack<unique_ptr<StackBaseData>> st;
-
-	unique_ptr<StackBaseData> data;
-	unique_ptr<StackBaseData>& p = data;
-	p = make_unique<StackIntData>(12);
-	st.push(move(data));
-	st.push(make_unique<StackDoubleData>(12));
-	st.push(make_unique<StackStrData>("12"));
-
-	while (!st.empty()) {
-		/*		스마트 포인터라 따로 메모리 해제 하지 않아도 됨
-		StackBaseData* temp = st.top();
-		cout<< st.top();
-		st.pop()
-		delete temp;
-		*/
-		cout << *st.top() << endl;
-		st.pop();
-	}
-	return 0;
-}
-
 
 int main() {
 	int num_commands;
 	cin >> num_commands;
 	cin.ignore();
 
-	stack<unique_ptr<StackBaseData>> st;	//멀티타입 스택 선언
+	MyStack<unique_ptr<StackBaseData>> st = MyStack<unique_ptr<StackBaseData>>(num_commands);
 
 	string command;
 	unique_ptr<StackBaseData> data;
@@ -104,10 +111,10 @@ int main() {
 				cout << "\t" << *data << "\t는 올바른 입력형식이 아닙니다" << endl;
 				break;
 			}
-			st.push(move(data));	//stl stack.push는 인자를 복사해서 받음-> move로 전달
+			st.push(move(data));	// 인자를 복사해서 받음-> move로 전달
 			break;
 		case POP:
-			if (st.empty())	//빈 스택 예외 처리
+			if (st.isEmpty())	//빈 스택 예외 처리
 				cout << -1 << endl;
 			else {
 				cout << *st.top() << endl;
@@ -118,10 +125,10 @@ int main() {
 			cout << st.size() << endl;
 			break;
 		case EMPTY:
-			cout << st.empty() << endl;
+			cout << st.isEmpty() << endl;
 			break;
 		case TOP:
-			if (st.empty())	//빈 스택 예외 처리
+			if (st.isEmpty())	//빈 스택 예외 처리
 				cout << -1 << endl;
 			else
 				cout << *st.top() << endl;
@@ -169,9 +176,6 @@ bool isDigits(const string& str) {
 	catch (...) {
 		return false;
 	}
-	/*for (char ch : str)
-		if (!isdigit(ch)) return false;
-	return true;*/
 }
 
 void parsing(string& command, unique_ptr<StackBaseData>& data, DataType& data_type) {

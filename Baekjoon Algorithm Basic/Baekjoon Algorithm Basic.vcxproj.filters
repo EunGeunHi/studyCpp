@@ -39,5 +39,17 @@
     <ClCompile Include="200_DataStructure\1_2멀티타입스택_stl.cpp">
       <Filter>리소스 파일\200_DataStructure</Filter>
     </ClCompile>
+    <ClCompile Include="000_SelfStudy\unique_ptr과 move%28%29.cpp">
+      <Filter>리소스 파일\000_SelfStudy</Filter>
+    </ClCompile>
+    <ClCompile Include="200_DataStructure\1_3지피티 버전.cpp">
+      <Filter>리소스 파일\200_DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="200_DataStructure\1_3멀티타입스택_구현.cpp">
+      <Filter>리소스 파일\200_DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="200_DataStructure\iostream 입출력 최적화.cpp">
+      <Filter>리소스 파일\000_SelfStudy</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

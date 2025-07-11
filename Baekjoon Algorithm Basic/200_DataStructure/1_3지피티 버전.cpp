@@ -1,10 +1,7 @@
-//stl 컨테이너는 기본적으로 하나의 타입만 저장
-// 우회적 방법(1.상속 다형성 2.std::variant 3.std::any)들로 간접적으로 구현
-// 여기선 상속으로 구현
+// 10828변형. 멀티타입 저장 스택 구현
 #include <iostream>
 #include <string>
-#include <stack>
-#include <memory>	//스마트 포인터
+#include <memory>
 using namespace std;
 
 //스택 엘리먼트
@@ -45,6 +42,52 @@ public:
 	StackUnknownData(string value) :value(value) {}
 	void combineOsValue(ostream& os) const override { os << "[unkown] " << value; }
 };
+
+//스택 구현
+template<typename T>
+class MyStack {
+private:
+	T* data;
+	int idx_top;
+	int capacity;
+public:
+	MyStack(int n) : capacity(n) {
+		data = new T[n];
+		idx_top = -1;
+	}
+	~MyStack() { delete[] data; }
+
+	// 복사 생성자와 대입 연산자 삭제 (unique_ptr 때문에 필요)
+	MyStack(const MyStack&) = delete;
+	MyStack& operator=(const MyStack&) = delete;
+
+	bool isEmpty() { return idx_top == -1; }
+
+	void push(T&& input) {  // rvalue reference로 변경
+		if (idx_top + 1 >= capacity) {
+			cout << "Stack overflow!" << endl;
+			return;
+		}
+		data[++idx_top] = move(input);  // move 사용
+	}
+
+	T pop() {
+		if (isEmpty()) {
+			return nullptr;  // unique_ptr의 경우 nullptr 반환
+		}
+		return move(data[idx_top--]);  // move 사용
+	}
+
+	int size() { return idx_top + 1; }
+
+	T& top() {  // 참조 반환으로 변경
+		// 빈 스택인 경우의 처리는 호출부에서 isEmpty() 체크 후 호출
+		return data[idx_top];
+	}
+
+	int getIdxTop() { return idx_top; }
+};
+
 //입력 처리
 enum StackFunction { UNKNOWN, PUSH, POP, SIZE, EMPTY, TOP, QUIT };
 enum DataType { UNKOWN, INT, STR, DOUBLE };
@@ -52,37 +95,12 @@ bool isSeveral(const string&);
 void parsing(string&, unique_ptr<StackBaseData>&, DataType&);
 StackFunction toStackFunction(string&);
 
-
-int main1() {
-	stack<unique_ptr<StackBaseData>> st;
-
-	unique_ptr<StackBaseData> data;
-	unique_ptr<StackBaseData>& p = data;
-	p = make_unique<StackIntData>(12);
-	st.push(move(data));
-	st.push(make_unique<StackDoubleData>(12));
-	st.push(make_unique<StackStrData>("12"));
-
-	while (!st.empty()) {
-		/*		스마트 포인터라 따로 메모리 해제 하지 않아도 됨
-		StackBaseData* temp = st.top();
-		cout<< st.top();
-		st.pop()
-		delete temp;
-		*/
-		cout << *st.top() << endl;
-		st.pop();
-	}
-	return 0;
-}
-
-
 int main() {
 	int num_commands;
 	cin >> num_commands;
 	cin.ignore();
 
-	stack<unique_ptr<StackBaseData>> st;	//멀티타입 스택 선언
+	MyStack<unique_ptr<StackBaseData>> st = MyStack<unique_ptr<StackBaseData>>(num_commands);
 
 	string command;
 	unique_ptr<StackBaseData> data;
@@ -99,29 +117,31 @@ int main() {
 				cout << "parsing err" << endl;
 				break;
 			}
-			if (data_type == UNKNOWN) {
+			if (data_type == UNKOWN) {  // UNKNOWN -> UNKOWN으로 수정
 				cout << "push err :데이터 형식 이상" << endl;
 				cout << "\t" << *data << "\t는 올바른 입력형식이 아닙니다" << endl;
 				break;
 			}
-			st.push(move(data));	//stl stack.push는 인자를 복사해서 받음-> move로 전달
+			st.push(move(data));	// 이미 move 사용 중
 			break;
 		case POP:
-			if (st.empty())	//빈 스택 예외 처리
+			if (st.isEmpty())	//빈 스택 예외 처리
 				cout << -1 << endl;
 			else {
-				cout << *st.top() << endl;
-				st.pop();
+				auto popped = st.pop();  // pop된 요소를 받아서
+				if (popped) {
+					cout << *popped << endl;  // 출력
+				}
 			}
 			break;
 		case SIZE:
 			cout << st.size() << endl;
 			break;
 		case EMPTY:
-			cout << st.empty() << endl;
+			cout << st.isEmpty() << endl;
 			break;
 		case TOP:
-			if (st.empty())	//빈 스택 예외 처리
+			if (st.isEmpty())	//빈 스택 예외 처리
 				cout << -1 << endl;
 			else
 				cout << *st.top() << endl;
@@ -137,7 +157,6 @@ int main() {
 
 	return 0;
 }
-
 
 bool isSeveral(const string& command) {
 	return (command.find(' ') == string::npos) ? false : true;
@@ -169,9 +188,6 @@ bool isDigits(const string& str) {
 	catch (...) {
 		return false;
 	}
-	/*for (char ch : str)
-		if (!isdigit(ch)) return false;
-	return true;*/
 }
 
 void parsing(string& command, unique_ptr<StackBaseData>& data, DataType& data_type) {

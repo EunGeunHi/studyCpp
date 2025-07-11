@@ -130,9 +130,13 @@
     <ClCompile Include="000_SelfStudy\getline%28%29과 버퍼.cpp" />
     <ClCompile Include="200_DataStructure\1_1정수스택_stl.cpp" />
     <ClCompile Include="200_DataStructure\1_2멀티타입스택_stl.cpp" />
+    <ClCompile Include="200_DataStructure\1_3멀티타입스택_구현.cpp" />
+    <ClCompile Include="200_DataStructure\1_3지피티 버전.cpp" />
     <ClCompile Include="200_DataStructure\1__정수스택_구현.cpp" />
     <ClCompile Include="200_DataStructure\2_단어뒤집기_스택.cpp" />
     <ClCompile Include="200_DataStructure\2_단어뒤집기_스트링.cpp" />
+    <ClCompile Include="000_SelfStudy\unique_ptr과 move%28%29.cpp" />
+    <ClCompile Include="200_DataStructure\iostream 입출력 최적화.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

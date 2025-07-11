@@ -107,7 +107,7 @@ int strToInt(const string& str) {
 }
 void parsing(string& command, int& command_parsed) {
 	size_t spacePos = command.find(' '); // npos경우 처리는 main에서 if로 확인했음
-	//string.substr(size_t)면 string.substr(size_t, string.length() )과 같음
+	//string.substr(size_t)면 string.substr(size_t에서, string.length()까지 )과 같음
 	command_parsed = strToInt(command.substr(spacePos + 1));
 	command = command.substr(0, spacePos);
 
