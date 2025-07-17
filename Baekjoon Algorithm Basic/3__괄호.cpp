@@ -57,3 +57,8 @@ bool isVPS(string& str) {
 	}
 	return left_paren_num == 0 ? true : false;
 }
+/*
+1. 처음 )이 나오면 안됨											eg. )()	-> X
+2. )이 나왔을때 이전에 나온 (갯수보다 )의 갯수가 많으면 안됨	eg. ())	-> X
+3. 1,2통과후 (의 갯수가 )의 총 갯수보다 많은면 안됨				eg. (()	-> X
+*/

@@ -1,6 +1,8 @@
 //9012. 괄호
 /*
 유효한 괄호 문자열 판별
++ 안의 문자열 분리후 문자열 배열로 반환
+-> ()세트 몇개인지 확인해야.
 */
 
 #include <iostream>
@@ -13,22 +15,16 @@ bool isVPS(string&);
 int main() {
 	int command_num;
 	cin >> command_num;
-	//if (cin.fail()) {//예외처리
-	//	cout << "올바르지 않은 입력" << endl;
-	//	cin.clear();		//failbit 포함 모든 에러 플래그 초기화
-	//	cin.ignore(numeric_limits<streamsize>::max(), '\n');	//입력 버퍼에 남아있는 잘못된 데이터 비움
-	//	return 1;
-	//}
-
 	cin.ignore();
 	string command;
+
 	for (int i = 0; i < command_num; ++i) {
 		getline(cin, command);
 
-		/*if (!isParenthesis(command)) {
+		if (!isParenthesis(command)) {
 			cout << "괄호 외의 문자 포함됨" << endl;
 			continue;
-		}*/
+		}
 		cout << (isVPS(command) ? "YES" : "NO") << endl;
 	}
 	return 0;
@@ -49,9 +45,9 @@ bool isVPS(string& str) {
 	int left_paren_num = 0;
 	for (char ch : str) {
 		if (ch == '(')
-			left_paren_num += 1;
+			left_paren_num = +1;
 		else {	// ch==')'일 때
-			left_paren_num -= 1;
+			left_paren_num = -1;
 			if (left_paren_num < 0) return false;
 		}
 	}

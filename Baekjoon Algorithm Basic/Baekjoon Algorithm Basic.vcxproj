@@ -137,6 +137,9 @@
     <ClCompile Include="200_DataStructure\2_단어뒤집기_스트링.cpp" />
     <ClCompile Include="000_SelfStudy\unique_ptr과 move%28%29.cpp" />
     <ClCompile Include="000_SelfStudy\iostream 입출력 최적화.cpp" />
+    <ClCompile Include="3_1괄호.cpp" />
+    <ClCompile Include="3__괄호.cpp" />
+    <ClCompile Include="조건삼항연산자.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
