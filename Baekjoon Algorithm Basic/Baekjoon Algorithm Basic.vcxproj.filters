@@ -51,14 +51,20 @@
     <ClCompile Include="000_SelfStudy\iostream 입출력 최적화.cpp">
       <Filter>리소스 파일\000_SelfStudy</Filter>
     </ClCompile>
-    <ClCompile Include="3__괄호.cpp">
+    <ClCompile Include="200_DataStructure\3__괄호.cpp">
       <Filter>리소스 파일\200_DataStructure</Filter>
     </ClCompile>
-    <ClCompile Include="조건삼항연산자.cpp">
+    <ClCompile Include="000_SelfStudy\조건삼항연산자.cpp">
       <Filter>리소스 파일\000_SelfStudy</Filter>
     </ClCompile>
-    <ClCompile Include="3_1괄호.cpp">
+    <ClCompile Include="200_DataStructure\3_1괄호.cpp">
       <Filter>리소스 파일\200_DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="200_DataStructure\4__스택수열.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="200_DataStructure\4_0스택수열_모범.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
