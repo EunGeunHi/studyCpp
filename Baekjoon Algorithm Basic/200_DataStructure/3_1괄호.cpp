@@ -7,10 +7,11 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <stack>
 using namespace std;
 
-bool isParenthesis(string&);
-bool isVPS(string&);
+void parenthesisParse(const string&, vector<string>&);
 
 int main() {
 	int command_num;
@@ -21,35 +22,44 @@ int main() {
 	for (int i = 0; i < command_num; ++i) {
 		getline(cin, command);
 
-		if (!isParenthesis(command)) {
-			cout << "괄호 외의 문자 포함됨" << endl;
-			continue;
-		}
-		cout << (isVPS(command) ? "YES" : "NO") << endl;
+		vector<string> words;
+		parenthesisParse(command, words);
+
+		for (string str : words)
+			cout << str << ' ';
+		cout << endl;
+
 	}
 	return 0;
 }
 
-bool isParenthesis(string& str) {
-	if (str.empty())
-		return false;
-	for (char ch : str) {
-		if (ch != '(' && ch != ')') return false;
-	}
-
-	return true;
-}
-bool isVPS(string& str) {
-	if (str.at(0) == ')') return false;		//str[]는 범위 검사 하지 않음 str.at()이 더 안전
-
-	int left_paren_num = 0;
-	for (char ch : str) {
-		if (ch == '(')
-			left_paren_num = +1;
-		else {	// ch==')'일 때
-			left_paren_num = -1;
-			if (left_paren_num < 0) return false;
+void parenthesisParse(const string& object, vector<string>& result_list) {
+	stack<char> st;
+	string word = "";
+	for (char ch : object) {
+		if (st.empty() && ch != '(') {
+			cout << "\"" << object << "\" is not VPS";
+			result_list.clear();
+			return;
+		}
+		else if (ch == '(')
+			st.push('(');
+		else if (ch != '(' && ch != ')')
+			word += ch;
+		else if (ch == ')') {
+			st.pop();
+			result_list.push_back(word);
+			word = "";
+		}
+		else {
+			cout << "parenthesisParse for문 err\n";
+			result_list.clear();
+			return;
 		}
 	}
-	return left_paren_num == 0 ? true : false;
+
+	if (st.empty() == false) {	//'('이 더 많은 경우
+		cout << "\"" << object << "\" is not VPS (많음";
+		result_list.clear();
+	}
 }

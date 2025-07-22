@@ -61,10 +61,10 @@
       <Filter>리소스 파일\200_DataStructure</Filter>
     </ClCompile>
     <ClCompile Include="200_DataStructure\4__스택수열.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>리소스 파일\200_DataStructure</Filter>
     </ClCompile>
     <ClCompile Include="200_DataStructure\4_0스택수열_모범.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>리소스 파일\200_DataStructure</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
