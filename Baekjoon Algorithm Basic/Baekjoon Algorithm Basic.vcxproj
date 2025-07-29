@@ -142,7 +142,9 @@
     <ClCompile Include="000_SelfStudy\조건삼항연산자.cpp" />
     <ClCompile Include="200_DataStructure\4_0스택수열_모범.cpp" />
     <ClCompile Include="200_DataStructure\4__스택수열.cpp" />
-    <ClCompile Include="5__에디터.cpp" />
+    <ClCompile Include="200_DataStructure\5_1에디터%28리스트 %29.cpp" />
+    <ClCompile Include="200_DataStructure\5__에디터.cpp" />
+    <ClCompile Include="000_SelfStudy\실행시간 체크.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

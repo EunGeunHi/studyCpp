@@ -11,31 +11,35 @@
 
 #include <iostream>
 #include <string>
-#include <list>
 using namespace std;
 
 class CharsEditer {
 private:
-	list<char> str;
-	list<char>::iterator it_cursor = str.begin();
+	string data;
+	int it_cursor;//맨왼쪽이 0, 맨오른쪽이 data.length()
 public:
-	CharsEditer(const string& data) {
-		str.insert(it_cursor, data.begin(), data.end());//for (char ch : data) str.push_back(ch); 
-		it_cursor = str.end();
+	CharsEditer(const string& chars) : data(chars) {// 빈문자열 처리?
+		it_cursor = (int)chars.length();
 	}
 	void goCursorLeft();
 	void goCursorRight();
 	void deleteCursorLeft();
 	void addCursorLeft(const string&);
-	string getStr() const;
-
+	const string& getData() const { return data; }
+	friend ostream& operator<<(ostream& os, const CharsEditer editer) {//디버깅용
+		os << "data: \"" << editer.data << " \"\t 커서:" << editer.it_cursor;
+		return os;
+	}
 };
 
 int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
 
 	string edit_chars;
 	cin >> edit_chars;
 	CharsEditer editer(edit_chars);
+	//cout << editer << endl;
 
 	string command;
 	int num_command;
@@ -58,38 +62,37 @@ int main() {
 		else {
 			cout << "입력\" " << command << " \" 확인 필요" << endl;
 		}
+		//cout << editer << endl;
 	}
-	cout << editer.getStr();
+	cout << editer.getData();
 
 	return 0;
 }
 
 void CharsEditer::goCursorLeft() {
-	if (it_cursor != str.begin()) --it_cursor;
+	if (it_cursor > 0) --it_cursor;
 	return;
 }
 void CharsEditer::goCursorRight() {
-	if (it_cursor != str.end()) ++it_cursor;
+	if (it_cursor < data.length()) ++it_cursor;
 	return;
 }
 void CharsEditer::deleteCursorLeft() {
-	if (it_cursor != str.begin()) it_cursor = str.erase(--it_cursor);	//erase()가 삭제된 다음을 반환
+	if (it_cursor > 0) data.erase(--it_cursor, 1);
 	return;
 }
 void CharsEditer::addCursorLeft(const string& new_data) {
-	str.insert(it_cursor, new_data.begin(), new_data.end());// insert()가 새로 삽입된 요소를 반환 <- 인자가 하나일 때 만
+	data.insert(it_cursor++, new_data);
 	return;
-}
-string CharsEditer::getStr() const {
-	string ret;
-	for (char ch : str) ret += ch;
-	return ret;
 }
 
 /*
-list
-효율적:
-어떤 위치에서든 요소 삽입/삭제 효율적 O(1)
-비효율적:
-특정 인덱스에 접근시 앞이나 뒤에서 부터 순차적으로 탐색해야함 O(N)
+시간 초과 발생
+-> string.insert()와 .erase() 연산을 반복적으로 사용했기 때문
+삽입할 문자열의 길이 = M, 삽입 위치 이후의 문자열 길이 = N
+총 시간 복잡도는 O(N + M)
+->내부 알고리즘에서 데이터 복사·이동이 잦기 때문
+
+array는 접근이 효율적이지만
+삽입/삭제가 비효율적임
 */
