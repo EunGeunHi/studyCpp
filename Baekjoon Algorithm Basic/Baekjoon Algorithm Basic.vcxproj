@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="200_DataStructure\5_2에디터%28스택%29.cpp" />
     <ClCompile Include="000_SelfStudy\getline%28%29과 버퍼.cpp" />
     <ClCompile Include="200_DataStructure\1_1정수스택_stl.cpp" />
     <ClCompile Include="200_DataStructure\1_2멀티타입스택_stl.cpp" />
@@ -145,6 +146,8 @@
     <ClCompile Include="200_DataStructure\5_1에디터%28리스트 %29.cpp" />
     <ClCompile Include="200_DataStructure\5__에디터.cpp" />
     <ClCompile Include="000_SelfStudy\실행시간 체크.cpp" />
+    <ClCompile Include="200_DataStructure\6__큐 구현.cpp" />
+    <ClCompile Include="200_DataStructure\6_1정수 큐 %28stl%29.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
