@@ -81,7 +81,10 @@
     <ClCompile Include="200_DataStructure\6__큐 구현.cpp">
       <Filter>소스 파일\200_DataStructure</Filter>
     </ClCompile>
-    <ClCompile Include="200_DataStructure\6_1정수 큐 %28stl%29.cpp">
+    <ClCompile Include="200_DataStructure\6_2정수 큐 %28stl%29.cpp">
+      <Filter>소스 파일\200_DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="200_DataStructure\6_1큐&amp;리스트 구현.cpp">
       <Filter>소스 파일\200_DataStructure</Filter>
     </ClCompile>
   </ItemGroup>
