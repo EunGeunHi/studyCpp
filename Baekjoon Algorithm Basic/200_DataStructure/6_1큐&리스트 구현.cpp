@@ -20,16 +20,16 @@ private:
 		Node* prev;
 		Node* next;
 
-		Node() : data()/*T기본생성자 호출됨*/ ,prev(nullptr), next(nullptr){}
-		Node(T value):  data(value), prev(nullptr), next(nullptr) {}
+		Node() : data()/*T기본생성자 호출됨*/, prev(nullptr), next(nullptr) {}
+		Node(T value, Node* p, Node* n) : data(value), prev(p), next(n) {}
 	};
 public:	//auto가 접근할수 있도록
-	class Iterator{	//데이터 접근할 이터레이터,
+	class Iterator {	//데이터 접근할 이터레이터,
 		friend class List<T>;//List클래스에서 Iterator.current접근할 수 있도록
 	private:
 		Node* current;
 	public:
-		Iterator(Node* ptr = nullptr) : current(ptr){}
+		Iterator(Node* ptr = nullptr) : current(ptr) {}
 		//이터레이터 복사 생성자 필요 -> 매개변수로 사용하기 위해서 -> 디폴트로도 충분
 
 		Iterator& operator++() { current = current->next; return *this; }
@@ -39,10 +39,10 @@ public:	//auto가 접근할수 있도록
 		T& operator*() { return current->data; }
 		bool operator==(const Iterator& other) const { return current == other.current; }
 		bool operator!=(const Iterator& other) const { return current != other.current; }
-	
+
 	};
-//리스트 멤버 변수
-// 헤드 테일 더미노드로 엣지케이스 처리 용이화
+	//리스트 멤버 변수
+	// 헤드 테일 더미노드로 엣지케이스 처리 용이화
 private:
 	Node* head;
 	Node* tail;
@@ -56,13 +56,13 @@ public:
 		tail->prev = head;
 		list_size = 0;
 	}
-	Iterator begin() { return Iterator(head->next()); }
-	Iterator end() { return Iterator(tail()); }
+	Iterator begin() { return Iterator(head->next); }
+	Iterator end() { return Iterator(tail); }
 	bool empty() { return list_size == 0; }
 	size_t size() { return list_size; }
 	Iterator insert(Iterator position, const T& new_value) {
 		Node* pos = position.current;
-		Node* newNode = new(new_value, pos->prev, pos);
+		Node* newNode = new Node(new_value, pos->prev, pos);
 		pos->prev->next = newNode;
 		pos->prev = newNode;
 		++list_size;
@@ -83,15 +83,17 @@ public:
 	}
 	void push_back(const T& new_value) { this->insert(--this->end(), new_value); }
 	void push_front(const T& new_value) { this->insert(this->begin(), new_value); }
-	void pop_back(){
+	T& back() { return *(--this->end()); }
+	T& front() { return *(this->begin()); }
+	void pop_back() {
 		if (empty()) throw std::out_of_range("pop_back() on empty list");
 		this->erase(--this->end());
 	}
-	void pop_front(){
+	void pop_front() {
 		if (empty()) throw std::out_of_range("pop_front() on empty list");
 		this->erase(this->begin());
 	}
-	void clear(){
+	void clear() {
 		Iterator it = begin();
 		while (it != end()) {
 			it = erase(it); // erase는 삭제된 요소의 다음 이터레이터를 반환
@@ -116,7 +118,7 @@ public:
 	T& front() { return data.front(); }
 	T& back() { return data.back(); }
 	bool empty() { return data.empty(); }
-	int size() { return data.size(); }
+	int size() { return (int)data.size(); }
 };
 
 int main() {
