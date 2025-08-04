@@ -113,7 +113,7 @@ class Queue {
 private:
 	List<T> data;
 public:
-	void push(T new_data) { data.push_front(new_data); }
+	void push(T new_data) { data.push_back(new_data); }
 	void pop() { data.pop_front(); }
 	T& front() { return data.front(); }
 	T& back() { return data.back(); }

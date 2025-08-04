@@ -1,4 +1,4 @@
-//10845. 정수 큐 stl
+//10845. 정수 큐
 /*
 push X:	X를 큐에 넣음
 pop	:	큐에 가장 앞에 있는 정수 빼고 그 정수를 출력, 비어있다면 -1출력
@@ -18,7 +18,7 @@ class Queue {
 private:
 	list<T> data;
 public:
-	void push(T new_data){ data.push_front(new_data);}
+	void push(T new_data){ data.push_back(new_data);}
 	void pop(){ data.pop_front(); }
 	T& front(){ return data.front(); }
 	T& back(){ return data.back(); }

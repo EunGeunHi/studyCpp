@@ -90,5 +90,8 @@
     <ClCompile Include="200_DataStructure\7__요세푸스 문제.cpp">
       <Filter>소스 파일\200_DataStructure</Filter>
     </ClCompile>
+    <ClCompile Include="200_DataStructure\8__덱%28stl%29.cpp">
+      <Filter>소스 파일\200_DataStructure</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

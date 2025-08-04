@@ -150,6 +150,7 @@
     <ClCompile Include="200_DataStructure\6_2정수 큐 %28stl%29.cpp" />
     <ClCompile Include="200_DataStructure\6_1큐&amp;리스트 구현.cpp" />
     <ClCompile Include="200_DataStructure\7__요세푸스 문제.cpp" />
+    <ClCompile Include="200_DataStructure\8__덱%28stl%29.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
